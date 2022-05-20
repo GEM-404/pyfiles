@@ -13,8 +13,15 @@ import importlib
 import sys
 
 
-def get_dirs(package) -> list:
-    package = importlib.import_module(package)
+def get_dirs(package):
+    if '.' in package:
+        pack, sub_pack = package.split('.')
+        package = importlib.import_module(name=pack, package=sub_pack)
+    else:
+        try:
+            package = importlib.import_module(package)
+        except ModuleNotFoundError:
+            return f"{package} not in Python3 library or not yet installed"
 
     dir_list = dir(package)
 
@@ -40,7 +47,7 @@ def check_sec_args(args: list):
 def check_present_args(package: str, sub_package: str) -> str:
     """Checks whether a sub_module is present in a module"""
 
-    pack_list: list = get_dirs(package)
+    pack_list = get_dirs(package)
     checker = sub_package in pack_list
 
     if checker:
