@@ -6,14 +6,20 @@ This module is like the terminal ls command, but for
 python3 modules and classes... Whenever I wanna see what
 a certain module has, or what to use in it, I will be using
 this pyls command to see how it contains.
+
+The module is not complete since I know nothing of The
+argparse module and wanna implement it some time to come...
+
+This will help parse user's arguments when using it as a command...
 """
 
 # import argparse
 import importlib
 import sys
+from typing import Union
 
 
-def get_dirs(package):
+def get_dirs(package) -> Union[str, list]:
     if '.' in package:
         pack, sub_pack = package.split('.')
         package = importlib.import_module(name=pack, package=sub_pack)
