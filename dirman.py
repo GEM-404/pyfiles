@@ -34,6 +34,9 @@ def get_dirs(package) -> Union[str, list]:
     filterd_dirs: list = [directory for directory in dir_list
                       if not directory.startswith('__')]
 
+    if len(filterd_dirs) < 1:
+        return f"{package} has no sub-packages"
+
     return filterd_dirs
 
 
