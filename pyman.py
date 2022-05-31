@@ -1,5 +1,5 @@
 #! /usr/bin/env/python3
-#@author -> GEM-404 | EPHANTUS MACHARIA
+# @author -> GEM-404 | EPHANTUS MACHARIA
 
 """
 
@@ -9,21 +9,23 @@ a certain module does, or how to use it, I will be using
 this pyman $module to see how it works.
 """
 
+import importlib
 import sys
 
 
-def main():
+def main() -> str | None:
     if len(sys.argv) >= 2:
-        help(sys.argv[1])
+        module = sys.argv[1]
+        try:
+            mod = importlib.import_module(module)
+            return help(mod)
+
+        except:
+            return f"Module {module} not found!!! Check {module} is installed"
 
     else:
 
-        msg = """
-If you want to ask for help on a particular object directly from the
-interpreter, you can type "help(object)".  Executing "help('string')"
-has the same effect as typing a particular string at the help> prompt.
-              """
-
+        msg = "Please provide a module to look into"
         print(msg)
 
 
