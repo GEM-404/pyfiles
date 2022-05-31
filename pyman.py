@@ -11,22 +11,28 @@ this pyman $module to see how it works.
 
 import importlib
 import sys
+import textwrap
 
 
-def main() -> str | None:
+def main() -> None:
     if len(sys.argv) >= 2:
         module = sys.argv[1]
         try:
             mod = importlib.import_module(module)
-            return help(mod)
+            help(mod)
 
         except:
-            return f"Module {module} not found!!! Check {module} is installed"
+            msg = f"""
+            Module \"{module}\" not found!!! Check if
+            \"{module}\" is installed... If not installed, try
+            installing it with \"pip install {module}\"
+            """
+            print(textwrap.dedent(msg))
 
     else:
 
         msg = "Please provide a module to look into"
-        print(msg)
+        print(textwrap.dedent(msg))
 
 
 if __name__ == '__main__':
